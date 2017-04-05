@@ -1,5 +1,6 @@
 package test.ban.com.tinkersample;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements TinkerResultServi
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.tv_test);
         Button btnTest = (Button) findViewById(R.id.btn_test);
+
+
 
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +82,9 @@ public class MainActivity extends AppCompatActivity implements TinkerResultServi
     }
 
     private void restartApplication() {
-//        System.exit(0);
-//        Intent intent = new Intent();
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        am.restartPackage("test.ban.com.tinkersample");
     }
 
     /**
