@@ -19,13 +19,14 @@ public class DownloadTask implements Runnable {
     private Handler handler = new UIHandler();
     private ProgressBar progressBar;
     private Context context;
+    private IDownLoad iDownLoad;
 
     public DownloadTask(Context context, String path, File saveDir, ProgressBar progressBar) {
         this.path = path;
         this.context = context;
         this.saveDir = saveDir;
         this.progressBar = progressBar;
-
+        iDownLoad = (IDownLoad) context;
     }
 
 
@@ -75,11 +76,13 @@ public class DownloadTask implements Runnable {
                     ToastUtil.showToast(context.getApplicationContext(), result + "%");
                     if (progressBar.getProgress() == progressBar.getMax()) { // 下载完成
                         ToastUtil.showToast(context.getApplicationContext(), "下载完成");
+                        iDownLoad.downloadSuccess();
                     }
                     break;
                 case FAILURE: // 下载失败
 
                     ToastUtil.showToast(context.getApplicationContext(), "失败");
+                    iDownLoad.downloadSuccess();
                     break;
             }
         }
@@ -93,4 +96,9 @@ public class DownloadTask implements Runnable {
     }
 
 
+    public interface IDownLoad {
+        void downloadSuccess();
+
+        void downloadfailure();
+    }
 }

@@ -153,6 +153,7 @@ public class FileDownloader {
 //    private String getFileName(HttpURLConnection conn,String title) {
     private String getFileName(HttpURLConnection conn) {
         String filename = this.downloadUrl.substring(this.downloadUrl.lastIndexOf('/') + 1);    //从下载路径的字符串中获取文件名称
+        Log.i(TAG, "getFileName: "+filename);
 //        String filename = this.downloadUrl.substring(this.downloadUrl.lastIndexOf('/') + 1, this.downloadUrl.indexOf("?"));
         if (filename == null || "".equals(filename.trim())) {//如果获取不到文件名称
             for (int i = 0; ; i++) { //无限循环遍历
